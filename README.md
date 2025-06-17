@@ -92,3 +92,100 @@ In this exercise, you will build a Django project for the Little Lemon restauran
 
 Scenario
 The owners of the Little Lemon restaurant have hired you to build two APIs. One API to order food using the Menu API. You need to build the Table booking API to facilitate reserving a table for dining in the restaurant on a specific date and for a certain number of people.
+
+Scenario
+For the capstone project, you will build a REST API for ordering food and table reservation.
+
+Step 1: Create a templates directory
+
+The project package folder and the app package folder both are created inside the outer folder which is identified as BASE_DIR. Inside this BASE_DIR  create a template directory/folder named templates.
+
+Step 2: Include the templates directory in settings.py
+
+In VS Code, go to the TEMPLATES section in the settings.py file and ensure that the templates directory created in the above step is in the list of the DIRS attribute.
+
+#Include 'templates' in 'DIRS' attribute
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': ['templates'],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+]
+
+Step 3: Create index.html
+
+Inside the templates folder, create a new file called index.html and put the following script in it.
+
+<html>
+   <head>
+      <title>Capstone Project</title>
+   </head>
+   <body>
+      <h1 style="text-align:center;">Welcome ToLittleLemon Restaurant</h1>
+   </body>
+</html>
+
+Step 4: Define index view
+
+Open the views.py file from the restaurant folder. Add the following function:
+
+from django.shortcuts import render
+
+# Create your views here.
+def index(request):
+    return render(request, 'index.html', {})
+
+Step 5: Add the URL route
+
+Open the urls.py file from the restaurant folder. Make sure that the following path is added to the urlpatterns list.
+
+#define URL route for index() view
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    . . . ,
+    path('', views.index, name='index')
+]
+
+Step 6: Update URLConf
+
+Open the urls.py file from the Littlelemon folder. Include the URL patterns of the restaurant app in it.
+
+#update URLConf by including URL patterns of restaurant app
+from django.contrib import admin
+from django.urls import path, include
+
+urlpatterns = [
+   path('admin/', admin.site.urls),
+   path(restaurant/', include(restaurant.urls'))
+]
+
+Step 7: Visit the home page
+
+Run the Django server with the manage.py script and visit the http://localhost:8000/restaurant/ URL.
+
+Step 8: Save the LittleLemon.png image
+
+All the static assets must be placed in the restaurant/static/restaurant folder. Put the littlelemon.png file here.
+
+Step 9: add the static tag in index.html
+
+Modify the index.html file to include the following statements.
+
+<!--add this template tag-->
+{% load static %}
+<img src="{% static 'restaurant/littlelemon.png' %}">
+
+Step 10: Refresh the home page
+
+You should see the image rendered on the browser.
