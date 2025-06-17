@@ -117,7 +117,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    BASE_DIR / 'Static routes assets' / 'static',
+    BASE_DIR / 'restaurant' / 'static',
 ]
 
 # Default primary key field type
