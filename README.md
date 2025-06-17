@@ -41,13 +41,16 @@ The backend service for Little Lemon Restaurant, developed as part of the Meta B
 
 2. **Database Setup**
    - Configure your MySQL database settings in `little_lemon/settings.py`
-   - Run migrations:
+   - Change the current directory to littlelemon and create a djangoapp with the name restaurant.
      ```bash
      python manage.py migrate
      ```
 
+3. **Create Django app**
+```bash
+   python manage.py startapp restaurant
+   ```
 ### 🔥 Running the Server
-
 1. **Start development server**
    ```bash
    cd little_lemon
@@ -80,3 +83,12 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
+
+Exercise: Setting up the Django project
+Overview
+In this Capstone project course, you are going to build REST APIs using Django and Django REST Framework.
+
+In this exercise, you will build a Django project for the Little Lemon restaurant.
+
+Scenario
+The owners of the Little Lemon restaurant have hired you to build two APIs. One API to order food using the Menu API. You need to build the Table booking API to facilitate reserving a table for dining in the restaurant on a specific date and for a certain number of people.
