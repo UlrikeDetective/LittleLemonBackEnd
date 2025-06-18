@@ -51,7 +51,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'littlelemon.urls'
+ROOT_URLCONF = 'little_lemon.urls'
 
 TEMPLATES = [
     {
@@ -70,7 +70,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'littlelemon.wsgi.application'
+WSGI_APPLICATION = 'little_lemon.wsgi.application'
 
 
 # Database
@@ -79,7 +79,7 @@ WSGI_APPLICATION = 'littlelemon.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'reservations',
+        'NAME': 'LittleLemon',
         'USER': 'admindjango',
         'PASSWORD': 'Admin@123456!',
         'HOST': 'localhost',

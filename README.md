@@ -189,3 +189,59 @@ Modify the index.html file to include the following statements.
 Step 10: Refresh the home page
 
 You should see the image rendered on the browser.
+
+MySQL Database Setup
+1. **Install MySQL Server**: Follow the installation instructions for your operating system.
+2. mysql -u root -p
+3. **Install MySQL client for Python**: Ensure you have the MySQL client installed in your virtual environment:
+   ```bash
+   pip install mysqlclient
+   ```
+4. **Create a database**: Open your MySQL client and run the following command:
+   ```sql
+   CREATE DATABASE little_lemon;
+   ```
+5. **Create a user**: Create a new user and grant privileges to the database:
+   ```sql
+   CREATE USER 'little_lemon_user'@'localhost' IDENTIFIED BY 'your_password';
+   GRANT ALL PRIVILEGES ON little_lemon.* TO 'little_lemon_user'@'localhost';
+   FLUSH PRIVILEGES;
+   ```      
+6. **Update settings.py**: Modify your Django project's `settings.py` file to connect to the MySQL database:
+   ```python
+   #Settings.py 
+ DATABASES = {   
+    'default': {   
+        'ENGINE': 'django.db.backends.mysql',   
+        'NAME': 'LittleLemon',   
+        'USER': 'root',   
+        'PASSWORD': '',   
+        'HOST': '127.0.0.1',   
+        'PORT': '3306',   
+        'OPTIONS': {   
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"   
+        }   
+    }   
+}
+
+exit mysql client by typing `exit;`
+
+7. **Migrate the database**: Run the following command to create the necessary tables in your MySQL database:
+   ```bash
+   python manage.py migrate
+   ```
+   Step 6
+
+Note that the MySQL tab appears in the file explorer bar of VS Code
+Click on +  button and connect to the database. Enter localhost as the domain name and null password when prompted.
+
+
+Now localhost appears in the MySQL tab.
+8. **Create a superuser**: Create a superuser to access the Django admin interface:
+   ```bash
+   python manage.py createsuperuser
+   ```
+9. **Run the server**: Start the Django development server:
+   ```bash
+   python manage.py runserver
+   ```
