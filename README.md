@@ -245,3 +245,6 @@ Now localhost appears in the MySQL tab.
    ```bash
    python manage.py runserver
    ```
+Step 7
+
+Expand the localhost to find your database – LittleLemon. Double click it to show the tables created by the migrate command
