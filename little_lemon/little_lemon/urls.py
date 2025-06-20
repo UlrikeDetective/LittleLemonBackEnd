@@ -17,6 +17,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.shortcuts import redirect
+from django.contrib import admin
+from django.urls import path, include
 
 def redirect_to_restaurant(request):
     return redirect('restaurant/')
@@ -24,5 +26,6 @@ def redirect_to_restaurant(request):
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('restaurant/', include('restaurant.urls')),
+    path('', include('restaurant.urls')),
     path('', redirect_to_restaurant, name='home'),
 ]

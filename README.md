@@ -378,3 +378,74 @@ Step 2
 
 Open the settings.py file and add 'rest_framework' in the LittleLemon project's INSTALLED_APPS list.
 
+Step 2
+
+Open the settings.py file and add 'rest_framework' in the LittleLemon project's INSTALLED_APPS list.
+
+Step 3
+
+The Serializer in Django REST Framework converts compound data types into JSON or XML format. ModelSerializer is a special type of serializer that quickly creates a serializer class from the Django model fields.
+
+The ModelSerializer class is declared in the rest_framework.serializers module.
+
+In the app package folder, create a new file called serializers.py and declare the MenuSerializer class that subclasses ModelSerializer.
+
+Step 4
+
+Open the views.py module in the restaurant app package folder. 
+
+Declare two classes:
+
+MenuItemView – inheriting the rest_framework.generics.ListCreateView class. It handles the POST and GET method calls.
+
+SingleMenuItemView – inherits the RetrieveUpdateAPIView and DestroyAPIView classes both imported from the rest_framework.generics module. This class is responsible for processing GET, PUT and DELETE method calls.
+
+Step 5
+
+Define URL routes for the restaurant app's menu views in the urls.py file.
+
+123
+#add following lines to urlpatterns list 
+path('menu/', views.MenuItemsView.as_view()),
+path('menu/<int:pk>', views.SingleMenuItemView.as_view()),
+Include app URLs in the LittleLemon project's urls.py module.
+
+12
+#add following line to urlpatterns list 
+path('restaurant/menu/',include(restaurant.urls'))  
+Step 6
+
+Run Django server, and open the URL http://localhost:8000/restaurant/menu/items. 
+
+This is the URL of the browsable API. Perform POST operations to add menu items. With the GET request, fetch the list of items.
+
+Tips
+
+Use the following code snippet to declare the serializer class:
+
+123456789
+#define Serializer class for User model
+from django.contrib.auth.models import User 
+from rest_framework import serializers 
+
+class UserSerializer(serializers.ModelSerializer): 
+
+    class Meta: 
+        model = User 
+        fields = ['url', 'username', 'email', 'groups']
+You can use the following code snippet to define views:
+
+123456789101112
+from rest_framework.decorators import api_view
+from .models import MenuItem
+from .serializers import MenuItemSerializer
+
+# Create your views here. 
+class MenuItemsView(generics.ListCreateAPIView): 
+queryset = MenuItem.objects.all() 
+serializer_class = MenuItemSerializer
+
+class SingleMenuItemView(generics.RetrieveUpdateAPIView, generics.DestroyAPIView):     
+
+
+
