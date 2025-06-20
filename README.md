@@ -248,3 +248,133 @@ Now localhost appears in the MySQL tab.
 Step 7
 
 Expand the localhost to find your database – LittleLemon. Double click it to show the tables created by the migrate command
+
+✅ Step-by-Step Actions in VS Code
+✅ 1. Open your project in VS Code
+Project folder should be named: LittleLemon
+
+Inside it, you should see an app folder: restaurant
+
+✅ 2. Define the Models
+Open restaurant/models.py and paste this code:
+
+python
+Copy
+Edit
+from django.db import models
+
+class Menu(models.Model):
+    title = models.CharField(max_length=255)
+    price = models.DecimalField(max_digits=10, decimal_places=2)
+    inventory = models.IntegerField()
+
+    def __str__(self):
+        return self.title
+
+class Booking(models.Model):
+    name = models.CharField(max_length=255)
+    no_of_guests = models.IntegerField()
+    booking_date = models.DateTimeField()
+
+    def __str__(self):
+        return f"{self.name} - {self.booking_date}"
+✅ 3. Connect Django to MySQL
+Open LittleLemon/settings.py and update the DATABASES section:
+
+python
+Copy
+Edit
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'LittleLemon',           # Your DB name
+        'USER': 'root',                  # Or your MySQL username
+        'PASSWORD': 'yourpassword',      # Replace with your password
+        'HOST': 'localhost',
+        'PORT': '3306',
+    }
+}
+🔁 If you're using PyMySQL, also open LittleLemon/__init__.py and add:
+
+python
+Copy
+Edit
+import pymysql
+pymysql.install_as_MySQLdb()
+✅ 4. Run the Migrations
+Open the terminal in VS Code:
+
+bash
+Copy
+Edit
+python manage.py makemigrations
+python manage.py migrate
+You should see confirmation that tables were created.
+
+✅ 5. Register the Models in Admin
+Open restaurant/admin.py and add:
+
+python
+Copy
+Edit
+from django.contrib import admin
+from .models import Menu, Booking
+
+admin.site.register(Menu)
+admin.site.register(Booking)
+✅ 6. Create a Superuser
+In the terminal:
+
+bash
+Copy
+Edit
+python manage.py createsuperuser
+Set a username, email, and password.
+
+✅ 7. Start the Development Server
+bash
+Copy
+Edit
+python manage.py runserver
+Open http://127.0.0.1:8000/admin
+
+Log in using your superuser credentials.
+
+✅ 8. Add Data via the Admin Interface
+Add Menu items (e.g., Burger, Salad, etc.)
+
+Add Booking entries (e.g., Alice, 3 guests, 2025-06-21 18:00)
+
+✅ 9. Verify Data in MySQL
+In your MySQL browser extension in VS Code:
+
+Refresh the database
+
+View the restaurant_menu and restaurant_booking tables
+
+You should see the new entries
+
+Username (leave blank to use 'ulrike_imac_air'): littlelemon01
+Email address: littlelemon01@lemons.com
+Password: lemons01
+Password (again): 
+
+Exercise: Set up the menu API
+Overview
+In previous exercises, you have already set up a LittleLemon project that includes the Restaurant app. You have also declared the Menu and Booking models, migrated to the MySQL database.
+
+In this exercise, you will build a REST API to perform CREATE, READ, UPDATE AND DELETE operations on the Menu model
+
+Scenario
+You will use Django REST Framework to build the APIs in the restaurant app. You will also create the views using DRF's generic views.
+
+Step 1
+
+Install the 'rest_framework' with pip install djangorestframework utility while remaining in the Django virtual environment directory.
+
+Open the command prompt in the LittleLemon directory and start VS Code.
+
+Step 2
+
+Open the settings.py file and add 'rest_framework' in the LittleLemon project's INSTALLED_APPS list.
+
