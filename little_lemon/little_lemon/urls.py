@@ -19,6 +19,11 @@ from django.urls import path, include
 from django.shortcuts import redirect
 from django.contrib import admin
 from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+from restaurant import views
+
+router = DefaultRouter()
+router.register(r'tables', views.BookingViewSet)
 
 def redirect_to_restaurant(request):
     return redirect('restaurant/')
@@ -28,4 +33,5 @@ urlpatterns = [
     path('restaurant/', include('restaurant.urls')),
     path('', include('restaurant.urls')),
     path('', redirect_to_restaurant, name='home'),
+    path('api/', include(router.urls)), 
 ]
