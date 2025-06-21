@@ -258,9 +258,6 @@ Inside it, you should see an app folder: restaurant
 ✅ 2. Define the Models
 Open restaurant/models.py and paste this code:
 
-python
-Copy
-Edit
 from django.db import models
 
 class Menu(models.Model):
@@ -281,9 +278,6 @@ class Booking(models.Model):
 ✅ 3. Connect Django to MySQL
 Open LittleLemon/settings.py and update the DATABASES section:
 
-python
-Copy
-Edit
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -296,17 +290,12 @@ DATABASES = {
 }
 🔁 If you're using PyMySQL, also open LittleLemon/__init__.py and add:
 
-python
-Copy
-Edit
 import pymysql
 pymysql.install_as_MySQLdb()
+
 ✅ 4. Run the Migrations
 Open the terminal in VS Code:
 
-bash
-Copy
-Edit
 python manage.py makemigrations
 python manage.py migrate
 You should see confirmation that tables were created.
@@ -314,9 +303,7 @@ You should see confirmation that tables were created.
 ✅ 5. Register the Models in Admin
 Open restaurant/admin.py and add:
 
-python
-Copy
-Edit
+
 from django.contrib import admin
 from .models import Menu, Booking
 
@@ -325,16 +312,10 @@ admin.site.register(Booking)
 ✅ 6. Create a Superuser
 In the terminal:
 
-bash
-Copy
-Edit
 python manage.py createsuperuser
 Set a username, email, and password.
 
 ✅ 7. Start the Development Server
-bash
-Copy
-Edit
 python manage.py runserver
 Open http://127.0.0.1:8000/admin
 
@@ -448,4 +429,104 @@ serializer_class = MenuItemSerializer
 class SingleMenuItemView(generics.RetrieveUpdateAPIView, generics.DestroyAPIView):     
 
 
+Exercise: Set up the table booking API
+Overview
+So far, you have built a Menu API in the Restaurant app of your Django project with the name LittleLemon. 
 
+In this exercise, you will add a Table booking API in the restaurant app. The booking model is already declared and migrated.
+
+Scenario
+While building the table booking API, you will define a class-based view with Django REST Framework's ModelViewSet class. Declare the view class as BookingViewSet.
+
+You will also use the DefaultRouter class to register the URL routes.
+
+Steps
+Step 1
+
+Open the project in VS Code. Ensure that 'rest_framework' is added in the INSTALLED_APPS list.
+
+Step 2
+
+In the serializers.py file present in the app folder, declare the BookingSerializer class. Use the ModelSerializer as its base. Set the model attribute to booking, and fields to __all__.
+
+Step 3
+
+In the app's views module, declare the BookingViewSet class, inheriting the rest_framework.viewsets.ModelViewSet class. 
+
+Fetch all the objects from the booking model. Set the serializer_class attribute to BookingSerializer.
+
+Step 4
+
+Open the urls.py file in the LittleLemon project package (not the restaurant app package folder).
+
+Import the rest_framework.routers.DefaultRouter class. Call its register method to wire up the 'booking' URL route with the BookingViewSet class.
+
+1
+router.register(r'tables', views.BookingViewSet)
+Add this router in the project's URL patterns.
+
+123
+urlpatterns = [
+path('restaurant/booking/', include(router.urls)),
+]
+Step 5
+
+Visit the browsable API URL http://localhost:8000/restaurant/booking/tables. You can perform table booking operations in the browser window.
+
+Tips:
+
+To declare the ViewSet class, you can use the following example:
+
+1234
+class UserViewSet(viewsets.ModelViewSet):
+   queryset = User.objects.all() 
+   serializer_class = UserSerializer
+   permission_classes = [permissions.IsAuthenticated] 
+Conclusion
+In this exercise session, you built a table booking API with Django REST Framework.
+
+Exercise: Add the registration page
+Overview
+So far, you have built the Menu API and Table booking API in your app.
+
+In this exercise, you will add the feature of registering a new user in your Django project.
+
+Scenario
+The objective of this exercise is to be able to add a new user, and modify the existing user's credentials from within the app instead of the admin interface. 
+
+You will use the Djoser authentication library. Using the views defined in this library, you can easily implement registration, login and logout actions.
+
+Steps
+Step 1
+
+Install the djoser library in the current Django environment with PIP. 
+
+Note: You should already have Django REST framework installed.
+
+Step 2
+
+Add the code 'djoser' to the INSTALLED_APPS list in the settings.py file. Ensure that it is placed after the 'rest_framework' app in the list.
+
+Step 3
+
+Add a new section in the settings.py file to set the DJOSER variable.
+
+12
+#add the following line
+DJOSER={"USER_ID_FIELD":"username"}
+Step 4
+
+Make sure that the TokenAuthentication and SessionAuthentication classes are added to the DEFAULT_AUTHENTICATION_CLASSES section in the REST_FRAMEWORK setting.
+
+Step 5
+
+Enable djoser endpoints by adding the following URL routes in the project's URL patterns.
+
+#add the following line
+DJOSER={"USER_ID_FIELD":"username"}
+
+POST /auth/users/ → to register a new user
+
+POST /auth/token/login/ → to get a token
+
+POST /auth/token/logout/ → to log out
