@@ -525,8 +525,77 @@ Enable djoser endpoints by adding the following URL routes in the project's URL 
 #add the following line
 DJOSER={"USER_ID_FIELD":"username"}
 
+Step 4
+
+Make sure that the TokenAuthentication and SessionAuthentication classes are added to the DEFAULT_AUTHENTICATION_CLASSES section in the REST_FRAMEWORK setting.
+
+Step 5
+
+Enable djoser endpoints by adding the following URL routes in the project's URL patterns.
+
+#add following lines to update urlpatterns list
+path('auth/', include('djoser.urls')),
+path('auth/', include('djoser.urls.authtoken'))
+
 POST /auth/users/ → to register a new user
 
 POST /auth/token/login/ → to get a token
 
 POST /auth/token/logout/ → to log out
+
+Step 6
+
+Run the migrations. Start the server and Login to the admin site with the superuser username and password. You should notice the Tokens section on the dashboard.
+
+python manage.py migrate
+python manage.py runserver
+
+Step 7
+
+Visit the Browsable API URL User List – Django REST framework to get the list of users already registered.
+GET /auth/users/
+http://127.0.0.1:8000/auth/users/
+http://127.0.0.1:8000/admin
+
+Step 8
+
+Next you must register new user. To add a new user, use the form and submit a POST request.
+
+Option 1: Use Postman (Recommended for testing)
+Open Postman (or any API testing tool).
+
+Set method to POST
+
+Use the URL:
+
+http://localhost:8000/auth/users/
+Under Body, select raw, and choose JSON.
+
+Enter JSON data like:
+
+{
+  "username": "testlittle",
+  "password": "little123456",
+  "email": "test@little.com"
+}
+Click Send — you should get a 201 Created response.
+
+Step 9 
+
+To login, visit the djoser generated URL http://127.0.0.1:8000/auth/token/login/. 
+
+Enter the username and password to obtain the token.
+POST http://127.0.0.1:8000/auth/token/login/
+{
+  "username": "testlittle",
+  "password": "little123456"
+Token create with auth token
+Step 10 
+
+To Logout, enter the URL http://127.0.0.1:8000/auth/token/logout/  with a POST method to logout the user.
+
+auth/token/logout/
+{
+  "auth": "your_auth_token"
+}
+b3d1179ed9f73a71e622a7fab7eda62595d8edba
