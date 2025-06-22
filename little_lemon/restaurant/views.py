@@ -8,6 +8,8 @@ from .serializers import MenuSerializer
 from rest_framework import viewsets
 from .models import Booking
 from .serializers import BookingSerializer
+from rest_framework.permissions import IsAuthenticated
+
 
 # Page views
 def home(request):
@@ -50,6 +52,7 @@ class SingleMenuItemView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Menu.objects.all()
     serializer_class = MenuSerializer
 
-class BookingViewSet(viewsets.ModelViewSet):
+class BookingView(generics.ListCreateAPIView):
     queryset = Booking.objects.all()
     serializer_class = BookingSerializer
+    permission_classes = [IsAuthenticated]
