@@ -38,7 +38,8 @@ urlpatterns = [
     path('', redirect_to_restaurant, name='home'),
     path('api/', include(router.urls)), 
     path('auth/', include('djoser.urls')),
-    path('auth/', include('djoser.urls.authtoken')),  # if using token-based auth
+    path('auth/', include('djoser.urls.authtoken')),
+    path('', include(router.urls)),  # if using token-based auth
         #add following line in urlpatterns list
-    path('api-token-auth/', obtain_auth_token)
+    path('api-token-auth/', obtain_auth_token),
 ]

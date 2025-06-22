@@ -599,3 +599,65 @@ auth/token/logout/
   "auth": "your_auth_token"
 }
 b3d1179ed9f73a71e622a7fab7eda62595d8edba
+
+Exercise: Securing the table booking API
+Overview
+In earlier exercises you already have the table booking API in the Restaurant app of your Django project with the name LittleLemon. 
+
+In this exercise, you will add token-based authentication to secure the Table booking API.
+
+Scenario
+When you enable token authentication feature in the app, a random hexadecimal string that is unique for each user can be generated from inside the admin panel as well as from within the app.
+
+The HTTP client passes this token in the request header. You can then restrict a view only for authenticated users.
+
+Step 1
+
+Add the 'rest_framework.authtoken' app to the list of INSTALLED_APPS in the settings.py file
+
+Step 2
+
+Import the IsAuthenticated class from the rest_framework.permissions module in the views.py file.
+
+Step 3
+
+You already have the BookingViewSet class in the views.py file. To secure this view, set the permission_classes property to a list containing IsAuthenticated.
+
+1
+permission_classes = [IsAuthenticated]
+Step 4
+
+Open the app's urls.py and import the following function:
+
+12
+#import obtain_auth_token view
+from rest_framework.authtoken.views import obtain_auth_token
+In the same file add a new URL route to the urlpatterns list:
+
+12
+#add following line in urlpatterns list
+path('api-token-auth/', obtain_auth_token)
+Step 5
+
+Run the server and visit the URL path api-token-auth/ from the Insomnia client. You should select the POST method, and enter username and password in the body. When submitted, you get the token string as the response.
+
+Step 6
+
+To get the response from a secured URL, select the Auth tab in Insomnia, choose the Bearer token from the drop down, and enter the token generated in the previous step and then press the send button.
+
+Tips:
+
+To secure the view you need to set the permission_classes attribute. Follow the following example for the views in booking API.
+
+
+from rest_framework.decorators import permission_classes
+from rest_framework import generics
+from rest_framework.permissions import IsAuthenticated
+#set permission_classes attribute
+from .models import MenuItem
+class MenuItemsView(generics.ListCreateAPIView):
+   permission_classes = [IsAuthenticated]
+   queryset = MenuItem.objects.all()
+   serializer_class = MenuItemSerializer
+Conclusion
+In this exercise, you implemented the TokenAutentication feature of Django REST framework to secure table booking API.
