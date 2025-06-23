@@ -2,6 +2,7 @@ from django.test import TestCase
 from restaurant.models import Menu
 
 class MenuModelTest(TestCase):
-    def test_menu_item_str(self):
-        item = Menu.objects.create(title="Spaghetti", price=12.50, inventory=10)
-        self.assertEqual(str(item), "Spaghetti")
+    def test_get_item(self):
+        item = Menu.objects.create(title="IceCream", price=80, inventory=100)
+        self.assertEqual(str(item), "IceCream : 80")
+
