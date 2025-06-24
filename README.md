@@ -94,10 +94,10 @@ Token-based authentication is implemented using [Djoser](https://djoser.readthed
 
 | Method        | Endpoint                      | Description                          |
 |---------------|-------------------------------|--------------------------------------|
-| GET/POST      | `/api/menu/`                  | List or create menu items            |
-| GET/PUT/DELETE| `/api/menu/<id>/`             | Retrieve, update or delete item      |
-| GET/POST      | `/api/booking/tables/`        | List or create bookings              |
-| GET/PUT/DELETE| `/api/booking/tables/<id>/`   | Manage specific booking              |
+| GET/POST      | `restaurant/api/menu/`                  | List or create menu items            |
+| GET/PUT/DELETE| `restaurant/api/menu/<id>/`             | Retrieve, update or delete item      |
+| GET/POST      | `/api/tables/`        | List or create bookings              |
+| GET/PUT/DELETE| `/api/tables/<id>/`   | Manage specific booking              |
 
 ---
 
